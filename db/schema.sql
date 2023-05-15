@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS employee_db;
-CREATE DATABASE employee_db;
+DROP DATABASE IF EXISTS employees_db;
+CREATE DATABASE employees_db;
 
-USE employee_db;
+USE employees_db;
 
-CREATE TABLE department (
+CREATE TABLE departments (
   id INT NOT NULL,
   name VARCHAR(30),
   PRIMARY KEY (id)
@@ -12,7 +12,7 @@ CREATE TABLE department (
 CREATE TABLE role (
   id INT,
   title VARCHAR(30),
-  salary NUMERIC, <--Decimal wasn't recognized-->
+  salary FLOAT(30), <--Decimal wasn't recognized-->
   FOREIGN KEY (department_id)
   REFERENCES departments(id)
   ON DELETE SET NULL

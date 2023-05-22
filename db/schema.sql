@@ -3,7 +3,7 @@ CREATE DATABASE employees_db;
 
 USE employees_db;
 
-CREATE TABLE departments (
+CREATE TABLE department (
   id INT NOT NULL,
   name VARCHAR(30),
   PRIMARY KEY (id)
@@ -12,9 +12,10 @@ CREATE TABLE departments (
 CREATE TABLE role (
   id INT,
   title VARCHAR(30),
-  salary FLOAT(30), <--Decimal wasn't recognized-->
+  salary FLOAT(30), 
+  department_id INT,
   FOREIGN KEY (department_id)
-  REFERENCES departments(id)
+  REFERENCES department(id)
   ON DELETE SET NULL
 );
 

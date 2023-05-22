@@ -3,10 +3,23 @@ const mysql = require("mysql2/promise");
 const db = require("./config/config.js");
 
 async function viewDepartments() {
-  const sql = `SELECT name FROM deparments`;
-  const data = await db.execute(sql);
+  console.log(db);
+  const sql = `SELECT name FROM department`;
+  const connection = await db();
+  const [data] = await connection.query(sql);
   console.log(data);
+  console.log(typeof data);
+  console.log(Array.isArray(data));
+  await connection.end();
 }
+
+async function viewRoles() {
+  const sql = `SELECT name FROM roles`;
+  const connection = await db();
+  const [data] = await connection.query(sql);
+  await connection.end();
+}
+
 function startMenu() {
   inquirer
     .prompt([
@@ -42,6 +55,7 @@ function startMenu() {
           break;
         case "View All Roles":
           console.log("View All Roles");
+          viewRoles();
           startMenu();
           break;
         case "Add Role":
@@ -70,33 +84,7 @@ function startMenu() {
     });
 }
 
-// async function example1() {
-//   const mysql = require("mysql2/promise");
-//   const conn = await mysql.createConnection({ database: test });
-//   const [rows, fields] = await conn.execute("select ?+? as sum", [2, 2]);
-//   await conn.end();
-// }
-
 startMenu();
-
-//   async function example2 () {
-//     const mysql = require('mysql2/promise');
-//     const pool = mysql.createPool({database: test});
-//     // execute in parallel, next console.log in 3 seconds
-//     await Promise.all([pool.query('select sleep(2)'), pool.query('select sleep(3)')]);
-//     console.log('3 seconds after');
-//     await pool.end();
-//   }
-
-// const mysql = require('mysql2');
-// const co = require('co');
-// co(function * () {
-//   const c = yield mysql.createConnectionPromise({user: 'root', namedPlaceholders: true });
-//   const rows = yield c.query('show databases');
-//   console.log(rows);
-//   console.log(yield c.execute('select 1+:toAdd as qqq', {toAdd: 10}));
-//   yield c.end();
-// });
 
 // {
 //     type: input,
